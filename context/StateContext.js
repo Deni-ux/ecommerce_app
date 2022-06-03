@@ -12,6 +12,10 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
+    
+//product we'd want to update
+    let foundProduct;
+    let index;
 
   //update quantity using a previous state and callback function
   const incQty = () => {
@@ -57,7 +61,23 @@ export const StateContext = ({ children }) => {
     }
 
     toast.success(`${qty} ${product.name} added to cart.`);
-  };
+    };
+    
+    const toggleCartItemQuantity = (id, value) => {
+        foundProduct = cartItems.find((item) => item._id === id);
+        index = cartItems.find((product) => product._id === id);
+
+        //are we + increment or - decrement
+        //UPDATE CART ITEM BY CREATING NEW VARIABLE TO UPDATE THE STATE
+        if (value === 'inc') {
+            let newCartItems = [...cartItems, { ...product, quantity: product.quantity + 1 }];
+            setCartItems(newCartItems);
+           
+
+        } else if(value === 'dec') {
+
+        }
+    }
 
   return (
     <Context.Provider
