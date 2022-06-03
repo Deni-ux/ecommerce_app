@@ -1,38 +1,45 @@
-﻿import React, {useState} from "react";
+﻿import React, { useState } from "react";
 import { client, urlFor } from "../../lib/client";
-import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Product } from '../../components';
+import {
+  AiOutlineMinus,
+  AiOutlinePlus,
+  AiFillStar,
+  AiOutlineStar,
+} from "react-icons/ai";
+import { Product } from "../../components";
 import { useStateContex } from "../../context/StateContext";
- 
+
 //making an API call to fetch the desired product by using getStaticProps to pre-render the page
 const ProductDetails = ({ product, products }) => {
-    const { image, name, details, price } = product;
+  const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty } = useStateContex();
+  const { decQty, incQty, qty, onAdd } = useStateContex();
 
   return (
     <div>
       <div className="product-detail-container">
         <div>
-         
           <div className="image-container">
-            <img src={urlFor(image && image[index])} className='product-detail-image' />
+            <img
+              src={urlFor(image && image[index])}
+              className="product-detail-image"
+            />
           </div>
           {/* image carousel */}
-          <div className="small-images-container"> 
+          <div className="small-images-container">
             {image?.map((item, i) => (
               <img
                 src={urlFor(item)}
-                className= {i === index ? 'small-image selected-image' : 'small-image'}
+                className={
+                  i === index ? "small-image selected-image" : "small-image"
+                }
                 onMouseEnter={() => setIndex(i)}
               />
             ))}
           </div>
         </div>
         <div className="product-detail-desc">
-          <h1>
-            {name}
-          </h1>
+          <h1>{name}</h1>
           <div className="reviews">
             <div>
               <AiFillStar />
@@ -47,7 +54,7 @@ const ProductDetails = ({ product, products }) => {
           <p>{details}</p>
           <p className="price">£{price}</p>
 
-      {/* Quantity     */}
+          {/* Quantity     */}
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
@@ -58,19 +65,27 @@ const ProductDetails = ({ product, products }) => {
                 {qty}
               </span>
               <span className="plus" onClick={incQty}>
-               <AiOutlinePlus />
+                <AiOutlinePlus />
               </span>
             </p>
           </div>
 
           {/* buy now button */}
           <div className="buttons">
-            <button type='button' className="add-to-cart" onClick="">Add to Cart</button>
-            <button type='button' className="buy-now" onClick="">Buy now</button>
+            <button
+              type="button"
+              className="add-to-cart"
+              onClick={() => onAdd(product, qty)}
+            >
+              Add to Cart
+            </button>
+            <button type="button" className="buy-now" onClick="">
+              Buy now
+            </button>
           </div>
         </div>
       </div>
-      
+
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="marquee">
@@ -80,41 +95,38 @@ const ProductDetails = ({ product, products }) => {
             ))}
           </div>
         </div>
-        
       </div>
-
     </div>
   );
 };
 // [slug] is going to be dynamic and we'll have access
 //getStaticProps - getStaticPaths bug - every product needs to be clicked and immediately show the data for the current slug
 export const getStaticPaths = async () => {
-    const query = `*[_type == "product"] {
+  const query = `*[_type == "product"] {
         slug {
             current
         }
     }`;
 
-    const products = await client.fetch(query);
-    const paths = products.map((product) => ({
-        params: {
-            slug: product.slug.current
-        }
-    }));
-//always return paths
-    return {
-        paths,
-        fallback:'blocking'
-    }
-}
+  const products = await client.fetch(query);
+  const paths = products.map((product) => ({
+    params: {
+      slug: product.slug.current,
+    },
+  }));
+  //always return paths
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
 
-export const getStaticProps = async ({ params: { slug }}) => {
+export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
   const productsQuery = '*[_type == "product"]';
 
   const product = await client.fetch(query);
   const products = await client.fetch(productsQuery);
-
 
   return {
     props: { product, products }, //will be passed to the page component as props

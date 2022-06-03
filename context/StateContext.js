@@ -23,6 +23,39 @@ export const StateContext = ({ children }) => {
             return prevQty - 1;
         });
     }
+
+//add to cart function: 1- check if product already in the cart?
+    const onAdd = (product, quantity) => {
+        const checkProductInCart = cartItems.find((item) => item._id = product._id);
+        
+        //update states
+        setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+        
+        if (checkProductInCart) {
+         //update carts if the item already exists in the cart
+            const updatedCartItems = cartItem.map((cartProduct) => {
+                if (cartProduct._id === product._id) {
+                    return {
+                        ...cartProduct,
+                        quantity: cartProduct.quantity + quantity
+                    }
+                }
+            })
+            setCartItems(updatedCartItems);
+           
+        }
+        //if item doesn't exist in the cart
+        // ... is spread
+        else {
+            product.quantity = quantity;
+
+            setCartItems([...cartItems, { ...product }]);
+        }
+
+        toast.success(`${qty} ${product.name} added to cart.`);
+    }
+
   return (
       <Context.Provider
           value={{
@@ -33,6 +66,7 @@ export const StateContext = ({ children }) => {
               qty,
               incQty,
               decQty,
+              onAdd
         }}
       >
         {children}  
