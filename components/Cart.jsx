@@ -11,7 +11,7 @@ import { urlFor } from '../lib/client';
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart } = useStateContex();
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity } = useStateContex();
 
 
   return (
@@ -51,17 +51,17 @@ const Cart = () => {
                   <h4>£{item.price}</h4>
                 </div>
 
-
+          {/* Change Quantity */}
           <div className='flex bottom'>
                   <div>
                     <p className='quantity-desc'>
-                      <span className="minus" onClick="">
+                      <span className="minus" onClick={() => toggleCartItemQuantity(item._id, 'dec')}>
                 <AiOutlineMinus />
               </span>
               <span className="num" onClick="">
-                0
+                {item.quantity}
               </span>
-              <span className="plus" onClick="">
+              <span className="plus" onClick={() => toggleCartItemQuantity(item._id, 'inc')}>
                 <AiOutlinePlus />
               </span>
                     </p>

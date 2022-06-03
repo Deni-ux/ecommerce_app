@@ -12,10 +12,10 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
-    
-//product we'd want to update
-    let foundProduct;
-    let index;
+
+  //product we'd want to update
+  let foundProduct;
+  let index;
 
   //update quantity using a previous state and callback function
   const incQty = () => {
@@ -61,23 +61,33 @@ export const StateContext = ({ children }) => {
     }
 
     toast.success(`${qty} ${product.name} added to cart.`);
-    };
+  };
+
+  const toggleCartItemQuantity = (id, value) => {
+    foundProduct = cartItems.find((item) => item._id === id);
+    index = cartItems.findIndex((product) => product._id === id);
     
-    const toggleCartItemQuantity = (id, value) => {
-        foundProduct = cartItems.find((item) => item._id === id);
-        index = cartItems.find((product) => product._id === id);
-
-        //are we + increment or - decrement
-        //UPDATE CART ITEM BY CREATING NEW VARIABLE TO UPDATE THE STATE
-        if (value === 'inc') {
-            let newCartItems = [...cartItems, { ...product, quantity: product.quantity + 1 }];
-            setCartItems(newCartItems);
-           
-
-        } else if(value === 'dec') {
-
-        }
+    const newCartItems = cartItems.filter((item) => item._id !== id);
+    //are we + increment or - decrement
+    //UPDATE CART ITEM BY CREATING NEW VARIABLE TO UPDATE THE STATE
+    //update price , quantities
+    if (value === "inc") {
+     
+      setCartItems([...newCartItems, {...foundProduct, quantity: foundProduct.quantity + 1}]);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+    
+    } else if (value === "dec") {
+      if (foundProduct.quantity > 1) {
+        setCartItems([
+          ...newCartItems,
+          { ...foundProduct, quantity: foundProduct.quantity - 1 },
+        ]);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+      }
     }
+  };
 
   return (
     <Context.Provider
@@ -94,6 +104,7 @@ export const StateContext = ({ children }) => {
         incQty,
         decQty,
         onAdd,
+        toggleCartItemQuantity,
       }}
     >
       {children}
