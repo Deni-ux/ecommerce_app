@@ -11,7 +11,7 @@ import { urlFor } from '../lib/client';
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity } = useStateContex();
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContex();
 
 
   return (
@@ -33,7 +33,7 @@ const Cart = () => {
             <h3>Your shopping bag is empty</h3>
 
             <Link href="/">
-              <button type='button' onClick={() => setShowCart(false)} className='btn'>
+              <button type='button' className='btn' onClick={() => setShowCart(false)} >
                 Continue Shopping
               </button>
             </Link>
@@ -58,7 +58,7 @@ const Cart = () => {
                       <span className="minus" onClick={() => toggleCartItemQuantity(item._id, 'dec')}>
                 <AiOutlineMinus />
               </span>
-              <span className="num" onClick="">
+              <span className="num">
                 {item.quantity}
               </span>
               <span className="plus" onClick={() => toggleCartItemQuantity(item._id, 'inc')}>
@@ -69,7 +69,7 @@ const Cart = () => {
                   <button
                     type="button"
                     className='remove-item'
-                    onClick="">
+                    onClick={() => onRemove(item)}>
                     <TiDeleteOutline />
                   </button>
                 </div>
