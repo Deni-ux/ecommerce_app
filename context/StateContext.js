@@ -42,7 +42,6 @@ export const StateContext = ({ children }) => {
       setCartItems(updatedCartItems);
     }
     //if item doesn't exist in the cart
-    // ... is spread
     else {
       product.quantity = quantity;
 
@@ -72,7 +71,7 @@ export const StateContext = ({ children }) => {
 
     const newCartItems = cartItems.filter((item) => item._id !== id);
 
-    //are we + increment or - decrement
+    //are we + incrementing or - decrementing
     //UPDATE CART ITEM BY CREATING NEW VARIABLE TO UPDATE THE STATE
     //update price , quantities
     if (value === "inc") {
@@ -81,14 +80,15 @@ export const StateContext = ({ children }) => {
         ...foundProduct,
         quantity: foundProduct.quantity + 1,
       });
-
       setCartItems(newCartItems);
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
       setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
     } else if (value === "dec") {
       if (foundProduct.quantity > 1) {
-        
-        newCartItems.splice(index, 0, { ...foundProduct, quantity: foundProduct - 1 });
+        newCartItems.splice(index, 0, {
+          ...foundProduct,
+          quantity: foundProduct - 1,
+        });
         setCartItems(newCartItems);
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
