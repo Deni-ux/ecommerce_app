@@ -31,6 +31,7 @@ export const StateContext = ({ children }) => {
 
     if (checkProductInCart) {
       //update carts if the item already exists in the cart
+      //cartProduct to 'item'
       const updatedCartItems = cartItems.map((cartProduct) => {
         if (cartProduct._id === product._id) {
           return {
@@ -71,25 +72,30 @@ export const StateContext = ({ children }) => {
 
     const newCartItems = cartItems.filter((item) => item._id !== id);
 
-    //are we + incrementing or - decrementing
+    // const newCartItems = cartItems.filter((item) => item._id !== id);
+
+    //+ incrementing or - decrementing
     //UPDATE CART ITEM BY CREATING NEW VARIABLE TO UPDATE THE STATE
     //update price , quantities
     if (value === "inc") {
       // Here we update the newCartItems array with the new product quantity at the correct index before updating the state with the new array
-      newCartItems.splice(index, 0, {
-        ...foundProduct,
-        quantity: foundProduct.quantity + 1,
-      });
+      foundProduct = { ...foundProduct, quantity: foundProduct.quantity + 1 };
+
+      newCartItems.splice(index, 0, foundProduct);
+
       setCartItems(newCartItems);
+
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
       setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
     } else if (value === "dec") {
       if (foundProduct.quantity > 1) {
-        newCartItems.splice(index, 0, {
-          ...foundProduct,
-          quantity: foundProduct - 1,
-        });
-        setCartItems(newCartItems);
+        setCartItems(
+          cartItems.map((item, i) =>
+            i === index
+              ? { ...foundProduct, quantity: foundProduct.quantity - 1 }
+              : item
+          )
+        );
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
       }
