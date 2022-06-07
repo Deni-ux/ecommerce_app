@@ -191,13 +191,15 @@ span.text-red {
 
 .hero-banner-image {
   position: absolute;
-  top: 0%;
+  top: 10%;
   right: 20%;
-  width: 450px;
-  height: 450px;
+  
 }
 
-
+.btn-icon {
+  font-size: 30px;
+  padding: 10px;
+}
 .desc {
   position: absolute;
   right: 10%;
@@ -284,8 +286,10 @@ span.text-red {
   position: absolute;
   /* top: -35%;
   left: 8%; */
-  top: -25%;
-  left: 25%;
+  top: -15%;
+  left: 20%;
+  width: 400px;
+  height: 400px;
 }
 
 .banner-desc .right {
@@ -732,10 +736,11 @@ span.text-red {
   }
 
   .footer-banner-image {
-    width: 77%;
-    left: 30%;
+    width: 60%;
+    height: 60%;
+    left: 40%;
     top: 6%;
-    height: 56%
+    
   }
 
   .banner-desc .left h3 {

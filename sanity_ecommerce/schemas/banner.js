@@ -16,6 +16,7 @@
       title: "ButtonText",
       type: "string",
     },
+
     {
       name: "product",
       title: "Product",

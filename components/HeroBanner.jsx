@@ -1,10 +1,15 @@
 ﻿import React from 'react';
-import Link from 'next/link';
+import { FiChevronsDown } from 'react-icons/fi';
+
 
 import { urlFor } from '../lib/client';
 
+
 //pass the heroBanner prop
-const HeroBanner = ({heroBanner}) => {
+const HeroBanner = ({ heroBanner }) => {
+  
+
+
   return (
     <div className='hero-banner-container'>
       <div>
@@ -14,13 +19,15 @@ const HeroBanner = ({heroBanner}) => {
         <img src={urlFor(heroBanner.image)} alt="xbox series"
           className='hero-banner-image' />
         
-        <div>
-          <Link href={`/product/${heroBanner.product}`}>
-            <button type='button'>{heroBanner.buttonText}</button>
-          </Link>
+        <div className='buttons'>
+ <button className='buy-now'> EXPLORE  <span className='btn-icon'><FiChevronsDown /></span></button>
         </div>
-
-        <div className='desc'>
+          {/* <Link href={`/product/${heroBanner.product}`}>
+            <button type='button'>{heroBanner.buttonText}</button>
+          </Link> */}
+        
+    
+       <div className='desc'>
           <h5>Description</h5>
           <p>{heroBanner.desc}</p>
         </div>
