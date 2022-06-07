@@ -17,7 +17,7 @@ export default async function handler(req, res) {
           const newImg = img
             .replace(
               "image-",
-              "htps://cdn.sanity.io/images/ywelo34g/production/"
+              "https://cdn.sanity.io/images/ywelo34g/production/"
             )
             .replace("-png", ".png");
 
@@ -40,8 +40,8 @@ export default async function handler(req, res) {
           };
         }),
 
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/success`,
+        cancel_url: `${req.headers.origin}/canceled`,
       };
 
       // Create Checkout Sessions from body params.
