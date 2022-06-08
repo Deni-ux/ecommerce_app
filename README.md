@@ -1,34 +1,18 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## What is this project?
+This is my first ecommerce website learning project. It is a fullstack application with payments functionality integrating Stripe.
 
-First, run the development server:
+## Technologies 
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- **Advanced React** Best Practices: Folder and file structure, hooks and refs
+- **Advanced State Management** of the entire application using **React Context API**
+- **Next.js Best Practices: File-based routing, Data fetching that allows server-side rendering and static generation (show getServerSideProps, getStaticPaths, getStaticProps), Next.js as a backend endpoint.
+- **Stripe** to manage payments, products, shipping rates, and the entire checkout process
+- **Sanity**, you or your clients will be able to change the store’s homepage and more importantly, the details of all the products in the store, instantly and on the go! Sanity allows us to focus on developing the application without having to worry about the content, file storage, and databases. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![ecommerce-app](https://user-images.githubusercontent.com/75585908/172582118-9f296b4d-25ac-4f51-b7b7-e1bc06ea5626.png)
+![products](https://user-images.githubusercontent.com/75585908/172582175-bf6d485a-a33b-4157-8db0-9985fd967f0e.png)
+![cartItems](https://user-images.githubusercontent.com/75585908/172582196-8b0609cd-0e0a-4de7-a4dd-b560901bfb6f.png)
+![stripepayments](https://user-images.githubusercontent.com/75585908/172582208-11f092d9-0a35-439c-90d3-21fa74047940.png)
